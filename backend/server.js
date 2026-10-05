@@ -12,10 +12,20 @@ const orderRoutes = require('./routes/orderRoutes')
 
 const app = express()
 const PORT = process.env.PORT || 4000
+const databaseConnection = connectDB()
 
 app.use(cors({ origin: true, credentials: true }))
 app.use(express.json({ limit: '10mb' }))
 app.use(express.urlencoded({ extended: true }))
+
+app.use(async (req, res, next) => {
+  try {
+    await databaseConnection
+    next()
+  } catch (error) {
+    next(error)
+  }
+})
 
 app.get('/api/health', (req, res) => {
   res.json({
@@ -34,8 +44,12 @@ app.use((req, res) => {
   res.status(404).json({ success: false, message: 'Route not found' })
 })
 
-connectDB().finally(() => {
-  app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`)
+if (process.env.VERCEL) {
+  module.exports = app
+} else {
+  databaseConnection.finally(() => {
+    app.listen(PORT, () => {
+      console.log(`Server is running on http://localhost:${PORT}`)
+    })
   })
-})
+}
