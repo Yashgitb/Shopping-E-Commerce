@@ -1,0 +1,28 @@
+{
+  "name": "forever-ecommerce-backend",
+  "version": "1.0.0",
+  "description": "Express backend for the Forever e-commerce app",
+  "main": "server.js",
+  "type": "commonjs",
+  "scripts": {
+    "dev": "nodemon server.js",
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cloudinary": "^2.4.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.2",
+    "mongodb": "^7.7.0",
+    "mongoose": "^8.7.3",
+    "multer": "^2.4.0",
+    "razorpay": "^2.9.4",
+    "validator": "^13.0.2"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "nodemon": "^3.1.10"
+  }
+}
